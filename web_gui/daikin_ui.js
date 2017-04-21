@@ -461,7 +461,7 @@ function set_alert(boolean,mex){
 }
 
 function update(){
-	request_set_ip;
+	request_set_ip();
 	clearTimeout(control_timeout);
 	clearTimeout(sensor_timeout);
 	if( ! request_control_loading )
