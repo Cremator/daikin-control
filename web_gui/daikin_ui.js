@@ -411,6 +411,31 @@ function set_wing(wing_mode){
 	}
 }
 
+function request_set_ip(){
+	
+	var target="config.php";
+	var request="GET";
+	var parameters="returnAirconIP";
+	
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange  = function () {
+		if ( xmlhttp.readyState == 4 ){
+			if( xmlhttp.status==200 ){
+				var response = xmlhttp.responseText;
+				document.getElementById("ipaddr").innerHTML = response;
+			}else{
+				console.log("Error: aircon IP request failed");
+				set_alert(1,"<b>Error:</b> aircon IP request failed");
+			}
+		}else{
+			
+			//alert(xmlhttp.readyState);
+		}
+	}
+	xmlhttp.open(request,target + "?" + parameters ,true);
+	xmlhttp.send();
+	set_loading(1);
+}
 
 function set_loading(boolean){
 	var spinner = document.getElementById("spinner");
@@ -436,6 +461,7 @@ function set_alert(boolean,mex){
 }
 
 function update(){
+	request_set_ip;
 	clearTimeout(control_timeout);
 	clearTimeout(sensor_timeout);
 	if( ! request_control_loading )
